@@ -30,6 +30,10 @@ self.addEventListener('fetch', e => {
     fetch(e.request)
       .then(res => {
         // Make copy/clone of response
+        if(!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
+        }
+
         const resClone = res.clone();
         // Open cahce
         caches.open(cacheName).then(cache => {

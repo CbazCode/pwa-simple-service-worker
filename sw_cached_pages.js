@@ -25,7 +25,7 @@ self.addEventListener('install', e => {
 // Call Activate Event
 self.addEventListener('activate', e => {
   console.log('Service Worker: Activated');
-  // Remove unwanted caches (old cach, quita las caches si cambiamos el nombre de la version)
+  // Remove unwanted caches (remove the caches if we change the version name)
   e.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
@@ -43,6 +43,6 @@ self.addEventListener('activate', e => {
 // Call Fetch Event
 self.addEventListener('fetch', e => {
   console.log('Service Worker: Fetching');
-  //catch.match : carga todo lo que esta en la cache y lo coloca en el e.request
+  //event responds with a fecth to the request made by the user to the server, if it fails (for being offline for example) it looks in the caches if there is any response that is related to the request, if there is a response it returns that response
   e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
 });
